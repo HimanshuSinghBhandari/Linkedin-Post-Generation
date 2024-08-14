@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { generateLinkedInPost } from '@/utils/linkedin-generation';
 import { Listbox, Transition } from '@headlessui/react';
 import { FaChevronUp } from "react-icons/fa6";
+import LinkedInPostCard from '../(postCard)/post-card';
 
 type PostOption = {
   label: string;
@@ -172,13 +173,17 @@ const LinkedPostGenerator: React.FC = () => {
 
         {generatedContent && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-8 p-6 rounded-lg bg-zinc-800 text-zinc-100 border border-zinc-700"
-          >
-            <h2 className="font-semibold mb-4 text-xl text-teal-400">Generated Content:</h2>
-            <pre className="whitespace-pre-wrap text-zinc-300">{generatedContent}</pre>
-          </motion.div>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8"
+        >
+          <h2 className="font-semibold mb-4 text-xl text-teal-400">Generated Content:</h2>
+          <LinkedInPostCard
+            content={generatedContent}
+            profilePicture="https://picsum.photos/600/300?random=1" // Replace with an actual profile picture
+            name="AI Generated Post"
+          />
+        </motion.div>
         )}
       </motion.div>
     </div>
