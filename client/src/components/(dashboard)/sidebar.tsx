@@ -13,7 +13,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { icon: FaHome, text:'Dashboard', route: '/dashboard'},
-    { icon: FaPencilAlt, text: 'Generate Post', route: '/generatepost' },
+    { icon: FaPencilAlt, text: 'Generate Post', route: '/dashboard/generatepost' },
     { icon: FaGlobe, text: 'Generate from Blog URL', route: '/generatefromblog' },
     { icon: FaYoutube, text: 'Generate from YouTube URL', route: '/generatefromyoutube' },
     { icon: FaFilePdf, text: 'Generate from PDF', route: '/generatefrompdf' },
