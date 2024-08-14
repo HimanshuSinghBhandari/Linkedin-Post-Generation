@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+ .whitespace-pre-wrap {
+    white-space: pre-wrap;
+  }
+  
+ .bullet-point {
+    display: inline-block;
+    margin-right: 0.5em;
+    color: #0077B5; /* LinkedIn blue color */
+  }
