@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { FaBuilding, FaPencilAlt, FaGlobe, FaYoutube, FaFilePdf, FaBars } from 'react-icons/fa';
+import { FaBuilding, FaPencilAlt, FaGlobe, FaYoutube, FaFilePdf, FaBars, FaHome } from 'react-icons/fa';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,6 +12,7 @@ const Sidebar = () => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const menuItems = [
+    { icon: FaHome, text:'Dashboard', route: '/dashboard'},
     { icon: FaPencilAlt, text: 'Generate Post', route: '/generatepost' },
     { icon: FaGlobe, text: 'Generate from Blog URL', route: '/generatefromblog' },
     { icon: FaYoutube, text: 'Generate from YouTube URL', route: '/generatefromyoutube' },
@@ -63,7 +64,7 @@ const Sidebar = () => {
           {menuItems.map((item, index) => (
             <React.Fragment key={index}>
               <motion.div
-                className="py-4 px-4 cursor-pointer hover:bg-zinc-700 transition-colors duration-200"
+                className="py-4 px-4 cursor-pointer hover:bg-teal-400 transition-colors duration-200"
                 whileHover={{ x: 10 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => router.push(item.route)}
@@ -85,7 +86,7 @@ const Sidebar = () => {
                 </div>
               </motion.div>
               {index < menuItems.length - 1 && (
-                <div className="border-b border-zinc-700 mx-4" />
+                <div className="border-b border-teal-700 mx-4" />
               )}
             </React.Fragment>
           ))}
