@@ -22,39 +22,39 @@ const logos = [
 ];
 
 const LogoSlider: React.FC = () => {
-    return (
-      <div className="w-full overflow-hidden bg-gradient-to-r from-transparent via-zinc-900 to-transparent py-8">
-        <div className="max-w-3xl mx-auto relative">
-          <motion.div
-            className="flex"
-            animate={{
-              x: [0, -100 * logos.length],
-            }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 20,
-                ease: "linear",
-              },
-            }}
-          >
-            {[...logos, ...logos].map((logo, index) => (
-              <motion.div
-                key={index}
-                className="w-[80px] h-[80px] mx-4 flex items-center justify-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <div 
-                  className="w-12 h-12 text-white"
-                  dangerouslySetInnerHTML={{ __html: logo.svg }}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+  return (
+    <div className="w-full overflow-hidden py-8">
+      <div className="max-w-7xl mx-auto relative">
+        <motion.div
+          className="flex"
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 40,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...logos, ...logos].map((logo, index) => (
+            <motion.div
+              key={index}
+              className="w-[200px] h-[120px] mx-12 flex items-center justify-center flex-shrink-0"
+              whileHover={{ scale: 1.1 }}
+            >
+              <div 
+                className="w-16 h-16 text-zinc-400 hover:text-white transition-colors duration-300"
+                dangerouslySetInnerHTML={{ __html: logo.svg }}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    );
-  };
-  
-  export default LogoSlider;
+    </div>
+  );
+};
+
+export default LogoSlider;

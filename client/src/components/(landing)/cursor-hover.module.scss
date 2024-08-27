@@ -1,0 +1,60 @@
+.main {
+    height: 100vh;
+  
+    .mask, .body {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #afa18f;
+      font-size: 64px; // Default font size for larger screens
+      line-height: 66px; // Default line height for larger screens
+      cursor: default;
+  
+      p {
+        width: 1000px; // Fixed width for larger screens
+        padding: 40px; // Padding for larger screens
+        text-align: center; // Center text for better alignment
+      }
+  
+      span {
+        color: #009688; // Highlight color
+      }
+    }
+  
+    .mask {
+      mask-image: url('../../../public/mask.svg');
+      mask-repeat: no-repeat;
+      mask-size: 20px;
+      background: #009688;
+      position: absolute;
+      color: black;
+    }
+  
+    // Media queries for responsiveness
+    @media (max-width: 768px) {
+      .mask, .body {
+        font-size: 32px; // Adjust font size for tablets and smaller screens
+        line-height: 34px; // Adjust line height for tablets and smaller screens
+  
+        p {
+          width: 90%; // Use percentage width for better responsiveness
+          padding: 20px; // Reduce padding for smaller screens
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .mask, .body {
+        font-size: 34px; // Further adjust font size for mobile
+        line-height: 34px; // Further adjust line height for mobile
+  
+        p {
+          width: 100%; // Full width for mobile
+          padding: 20px; // Further reduce padding for mobile
+        }
+      }
+    }
+  }
+  

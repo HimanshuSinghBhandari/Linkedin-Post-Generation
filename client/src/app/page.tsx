@@ -5,12 +5,20 @@
 // import PDFPostGenerator from "@/components/(dashboard)/(postGeneration)/linkedin-post-PDF";
 import HeroSection from "@/components/(landing)/hero-section";
 import LogoSlider from "@/components/(landing)/image-slider";
+import TrustBadge from "@/components/(landing)/trust-badge";
+import DashboardImage from "@/components/(landing)/dashboard-image";
+import Cursorhover from "@/components/(landing)/cursor-hover";
+import LinkPostFeatures from "@/components/(landing)/link-post-feature";
 
 export default function Home() {
   return (
      <div className="bg-black">
       <HeroSection/>
+      <TrustBadge />
       <LogoSlider/>
+      <DashboardImage/>
+      <LinkPostFeatures/>
+      <Cursorhover/>
       {/* <BlogUrlPostGenerator/> */}
       {/* <LinkedPostGenerator/> */}
        {/* <Sidebar /> */}

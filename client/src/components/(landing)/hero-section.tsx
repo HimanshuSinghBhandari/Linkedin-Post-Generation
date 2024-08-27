@@ -3,7 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SlideNavTabs } from './navbar';
 import LinkPostBeam from './link-post-beam';
-
 const HeroSection: React.FC = () => {
   return (
     <div className="relative h-screen bg-black overflow-hidden">
