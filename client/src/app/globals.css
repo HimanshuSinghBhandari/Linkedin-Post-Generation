@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
  .whitespace-pre-wrap {
     white-space: pre-wrap;
   }
