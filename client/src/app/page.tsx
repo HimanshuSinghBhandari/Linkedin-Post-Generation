@@ -12,6 +12,8 @@ import LinkPostFeatures from "@/components/(landing)/link-post-feature";
 import GridLayout from "@/components/(landing)/grid-layout";
 import Linkeddiv from "@/components/(landing)/div-linkedin";
 import FeatureShowcase from "@/components/(landing)/feature";
+import LinkedLaunchingSoon from "@/components/(landing)/div-contact";
+import Footer from "@/components/(landing)/footer";
 
 export default function Home() {
   return (
@@ -25,6 +27,8 @@ export default function Home() {
       <GridLayout/>
       <Linkeddiv/>
       <FeatureShowcase/>
+      <LinkedLaunchingSoon/>
+      <Footer/>
       {/* <BlogUrlPostGenerator/> */}
       {/* <LinkedPostGenerator/> */}
        {/* <Sidebar /> */}
