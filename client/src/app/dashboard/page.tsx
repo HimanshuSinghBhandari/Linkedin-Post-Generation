@@ -1,10 +1,14 @@
 "use client"
+
 import React from "react";
 import Sidebar from "@/components/(dashboard)/sidebar";
 import { motion } from "framer-motion";
 import { FaLink, FaYoutube, FaFilePdf, FaEdit } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="flex h-screen bg-zinc-900 text-zinc-100">
       <Sidebar />
@@ -16,7 +20,7 @@ const Dashboard = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl font-bold mb-6 text-teal-400"
           >
-            Welcome to LinkPost Dashboard
+            Welcome to LinkPost Dashboard, {session?.user?.name}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

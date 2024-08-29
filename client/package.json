@@ -16,6 +16,7 @@
     "locomotive-scroll": "^4.1.4",
     "lucide-react": "^0.427.0",
     "next": "14.2.5",
+    "next-auth": "^4.24.7",
     "pdfjs-dist": "^2.7.570",
     "react": "^18",
     "react-dom": "^18",

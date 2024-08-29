@@ -3,11 +3,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { FaBuilding, FaPencilAlt, FaGlobe, FaYoutube, FaFilePdf, FaBars, FaHome } from 'react-icons/fa';
+import { FaBuilding, FaPencilAlt, FaGlobe, FaYoutube, FaFilePdf, FaBars, FaHome, FaUser } from 'react-icons/fa';
+import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [showLogout, setShowLogout] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -90,6 +94,53 @@ const Sidebar = () => {
               )}
             </React.Fragment>
           ))}
+        </div>
+
+        {/* User Profile Section */}
+        <div className="mt-auto p-4">
+          <div
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => setShowLogout(!showLogout)}
+          >
+            {session?.user?.image ? (
+              <Image
+                src={session.user.image}
+                alt="User Avatar"
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+            ) : (
+              <FaUser className="text-teal-400 text-xl" />
+            )}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-sm"
+                >
+                  {session?.user?.name || "User"}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+          <AnimatePresence>
+            {showLogout && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="mt-2 bg-red-500 text-white px-4 py-2 rounded text-sm"
+                onClick={() => signOut({ callbackUrl: '/' })}
+              >
+                Logout
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>

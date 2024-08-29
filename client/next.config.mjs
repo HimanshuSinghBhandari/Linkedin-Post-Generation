@@ -1,7 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['picsum.photos'], // Add the allowed image domain here
+      domains: ['picsum.photos'],  
+      remotePatterns:[
+        {
+            protocol:'https',
+            hostname:'lh3.googleusercontent.com',
+
+        }
+      ]
     },
   };
   
