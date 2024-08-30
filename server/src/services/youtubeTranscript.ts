@@ -1,8 +1,13 @@
-// youtubeTranscript.js
-const ytdl = require('ytdl-core');
-const { getSubtitles } = require('youtube-captions-scraper');
+import ytdl from 'ytdl-core';
+import { getSubtitles } from 'youtube-captions-scraper'
 
-const getYoutubeContent = async (url) => {
+interface YoutubeContent {
+  title: string;
+  description: string;
+  subtitles: string;
+}
+
+export const getYoutubeContent = async (url: string): Promise<YoutubeContent> => {
   try {
     const videoId = ytdl.getVideoID(url);
     
@@ -16,13 +21,13 @@ const getYoutubeContent = async (url) => {
       videoID: videoId,
       lang: 'en' // You can change this to get captions in different languages
     });
-    
+
     const subtitlesText = captions.map(caption => caption.text).join(' ');
 
     // Combine all content
-    const fullContent = {
+    const fullContent: YoutubeContent = {
       title: title,
-      description: description,
+      description: description!,
       subtitles: subtitlesText
     };
 
@@ -32,5 +37,3 @@ const getYoutubeContent = async (url) => {
     throw error;
   }
 };
-
-module.exports = { getYoutubeContent };

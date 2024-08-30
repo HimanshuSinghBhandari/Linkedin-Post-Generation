@@ -1,16 +1,16 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-const cors = require('cors');
-const { getYoutubeContent } = require('./youtubeTranscript');
+import express, { Request, Response } from 'express';
+import puppeteer from 'puppeteer';
+import cors from 'cors';
+import { getYoutubeContent } from './services/youtubeTranscript';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const scrapeSite = async (url) => {
+const scrapeSite = async (url: string): Promise<string> => {
   let browser;
   try {
-    browser = await puppeteer.launch({ headless: 'new' });
+    browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle0' });
 
@@ -30,7 +30,7 @@ const scrapeSite = async (url) => {
   }
 };
 
-app.post('/scrape', async (req, res) => {
+app.post('/scrape', async (req: Request, res: Response) => {
   try {
     const { url } = req.body;
     const scrapedContent = await scrapeSite(url);
@@ -40,15 +40,15 @@ app.post('/scrape', async (req, res) => {
   }
 });
 
-app.post('/youtube-content', async (req, res) => {
-    try {
-      const { url } = req.body;
-      const youtubeContent = await getYoutubeContent(url);
-      res.json(youtubeContent);
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while fetching YouTube content' });
-    }
-  });
+app.post('/youtube-content', async (req: Request, res: Response) => {
+  try {
+    const { url } = req.body;
+    const youtubeContent = await getYoutubeContent(url);
+    res.json(youtubeContent);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching YouTube content' });
+  }
+});
 
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

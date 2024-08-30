@@ -2,21 +2,31 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import image1 from "../../../public/pdf.png";
 
-const Button: React.FC<{ text: string; primary?: boolean }> = ({ text, primary = false }) => (
-  <motion.button
-    className={`px-6 py-2 rounded-full text-sm font-semibold ${
-      primary ? 'bg-teal-500 text-white' : 'bg-white text-teal-500'
-    } shadow-md`}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    {text}
-  </motion.button>
+const Button: React.FC<{ text: string; primary?: boolean; onClick?: () => void }> = ({ text, primary = false, onClick }) => (
+    <motion.button
+      className={`px-6 py-2 rounded-full text-sm font-semibold ${
+        primary ? 'bg-teal-500 text-white' : 'bg-white text-teal-500'
+      } shadow-md`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick} // Add onClick here
+    >
+      {text}
+    </motion.button>
 );
+  
 
 const LinkedLaunchingSoon: React.FC = () => {
+  
+  const router = useRouter();
+
+  const handleSignup = () => {
+    router.push('/signup');
+  }
+  
   return (
     <div className="w-full h-screen flex items-center justify-center p-8">
       <div className="w-full max-w-6xl h-4/5 rounded-2xl shadow-2xl overflow-hidden relative">
@@ -57,7 +67,7 @@ const LinkedLaunchingSoon: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <Button text="Sign Up" primary />
+              <Button text="Sign Up" primary onClick={handleSignup} />
               <Button text="Join Waitlist" />
             </motion.div>
           </div>

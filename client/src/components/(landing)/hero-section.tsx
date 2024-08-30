@@ -13,6 +13,10 @@ const HeroSection: React.FC = () => {
     router.push('/signup');
   };
 
+  const handleLearnMore = () => {
+    router.push('/learnmore');
+  };
+
   return (
     <div className="relative h-screen bg-black overflow-hidden">
       {/* Grid background */}
@@ -74,7 +78,7 @@ const HeroSection: React.FC = () => {
           <button onClick={handleSignUp} className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors">
             Sign Up
           </button>
-          <button className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
+          <button onClick={handleLearnMore} className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
             Learn More
           </button>
         </motion.div>
