@@ -24,59 +24,62 @@ const postOptions: PostOption[] = [
 ];
 
 const LinkedPostGenerator: React.FC = () => {
-    const [userInput, setUserInput] = useState('');
-    const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
-    const [customInputs, setCustomInputs] = useState<{ [key: string]: string }>({});
-    const [generatedContent, setGeneratedContent] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-  
-    const handleOptionChange = (optionLabel: string, optionValue: string) => {
-      setSelectedOptions(prevState => ({
-        ...prevState,
-        [optionLabel]: optionValue,
-      }));
-    };
-  
-    const handleCustomInputChange = (optionLabel: string, value: string) => {
-      setCustomInputs(prevState => ({
-        ...prevState,
-        [optionLabel]: value,
-      }));
-    };
-  
-    const handleGeneratePost = async () => {
-      setIsLoading(true);
-      try {
-        const options = { ...selectedOptions };
-        for (const [key, value] of Object.entries(customInputs)) {
-          if (value) options[key] = value;
-        }
-        const generatedPost = await generateLinkedInPost(userInput, options);
-        setGeneratedContent(generatedPost);
-      } catch (error) {
-        console.error('Error generating post:', error);
-        setGeneratedContent('An error occurred while generating the post. Please try again.');
-      } finally {
-        setIsLoading(false);
+  const [userInput, setUserInput] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
+  const [customInputs, setCustomInputs] = useState<{ [key: string]: string }>({});
+  const [generatedContent, setGeneratedContent] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleOptionChange = (optionLabel: string, optionValue: string) => {
+    setSelectedOptions(prevState => ({
+      ...prevState,
+      [optionLabel]: optionValue,
+    }));
+  };
+
+  const handleCustomInputChange = (optionLabel: string, value: string) => {
+    setCustomInputs(prevState => ({
+      ...prevState,
+      [optionLabel]: value,
+    }));
+  };
+
+  const handleGeneratePost = async () => {
+    setIsLoading(true);
+    try {
+      const options = { ...selectedOptions };
+      for (const [key, value] of Object.entries(customInputs)) {
+        if (value) options[key] = value;
       }
-    };
-  
-    return (
-      <div className="min-h-screen bg-zinc-900 text-zinc-100 py-12 px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+      const generatedPost = await generateLinkedInPost(userInput, options);
+      setGeneratedContent(generatedPost);
+    } catch (error) {
+      console.error('Error generating post:', error);
+      setGeneratedContent('An error occurred while generating the post. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-lg backdrop-filter backdrop-blur-lg relative overflow-hidden">
+      <div className="absolute inset-0 bg-teal-500 opacity-10 blur-2xl"></div>
+      <div className="relative z-10">
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto space-y-8"
+          className="text-3xl font-bold mb-6 text-zinc-100"
         >
-          <motion.h1
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            className="text-4xl font-extrabold mb-8 text-center text-zinc-100"
-          >
-            LinkedIn Post Generator
-          </motion.h1>
-          
+          LinkedIn Post Generator
+        </motion.h2>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="space-y-6"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {postOptions.map((postOption) => (
               <motion.div
@@ -90,7 +93,7 @@ const LinkedPostGenerator: React.FC = () => {
                 <div className="relative">
                   <Listbox value={selectedOptions[postOption.label] || ''} onChange={(value) => handleOptionChange(postOption.label, value)}>
                     <div className="relative mt-1">
-                      <Listbox.Button className="relative w-full cursor-default rounded-lg bg-zinc-800 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                      <Listbox.Button className="relative w-full cursor-default rounded-lg bg-gray-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                         <span className="block truncate">{selectedOptions[postOption.label] || 'Select an option'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <FaChevronUp className="h-5 w-5 text-zinc-400" aria-hidden="true" />
@@ -102,7 +105,7 @@ const LinkedPostGenerator: React.FC = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                       >
-                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                           {postOption.options.map((option, optionIdx) => (
                             <Listbox.Option
                               key={optionIdx}
@@ -138,54 +141,55 @@ const LinkedPostGenerator: React.FC = () => {
                     placeholder="Custom input"
                     value={customInputs[postOption.label] || ''}
                     onChange={(e) => handleCustomInputChange(postOption.label, e.target.value)}
-                    className="mt-2 w-full py-2 px-3 rounded-lg bg-zinc-800 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    className="mt-2 w-full py-2 px-3 rounded-lg bg-gray-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
               </motion.div>
             ))}
           </div>
-  
 
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="space-y-3"
-        >
-          <label className="font-semibold text-zinc-300">Post Content</label>
-          <textarea
-            className="w-full p-4 rounded-lg bg-zinc-800 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            placeholder="What kind of post do you want to generate?"
-            rows={4}
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-          />
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="space-y-3"
+          >
+            <label className="font-semibold text-zinc-300">Post Content</label>
+            <textarea
+              className="w-full p-4 rounded-lg bg-gray-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              placeholder="What kind of post do you want to generate?"
+              rows={4}
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+            />
+          </motion.div>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-teal-500 text-zinc-900 py-3 px-6 rounded-full shadow-lg w-full font-bold text-lg transition-colors hover:bg-teal-400"
+            onClick={handleGeneratePost}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Generating...' : 'Generate Post'}
+          </motion.button>
         </motion.div>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-teal-500 text-zinc-900 py-3 px-6 rounded-full shadow-lg w-full font-bold text-lg transition-colors hover:bg-teal-400"
-          onClick={handleGeneratePost}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Generating...' : 'Generate Post'}
-        </motion.button>
 
         {generatedContent && (
           <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-8"
-        >
-          <h2 className="font-semibold mb-4 text-xl text-teal-400">Generated Content:</h2>
-          <LinkedInPostCard
-            content={generatedContent}
-            profilePicture="https://picsum.photos/600/300?random=1" // Replace with an actual profile picture
-            name="AI Generated Post"
-          />
-        </motion.div>
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mt-8"
+          >
+            <h3 className="font-semibold mb-4 text-xl text-teal-400">Generated Content:</h3>
+            <LinkedInPostCard
+              content={generatedContent}
+              profilePicture="https://picsum.photos/600/300?random=1"
+              name="AI Generated Post"
+            />
+          </motion.div>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -64,7 +64,9 @@ const BlogUrlPostGenerator: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-zinc-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-lg backdrop-filter backdrop-blur-lg relative overflow-hidden">
+    <div className="absolute inset-0 bg-teal-500 opacity-10 blur-2xl"></div>
+    <div className="relative z-10">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -87,7 +89,7 @@ const BlogUrlPostGenerator: React.FC = () => {
           <label className="font-semibold text-zinc-300">Blog URL</label>
           <input
             type="text"
-            className="w-full p-4 rounded-lg bg-zinc-800 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full p-4 rounded-lg bg-gray-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
             placeholder="Enter the blog URL"
             value={blogUrl}
             onChange={(e) => setBlogUrl(e.target.value)}
@@ -107,7 +109,7 @@ const BlogUrlPostGenerator: React.FC = () => {
               <div className="relative">
                 <Listbox value={selectedOptions[postOption.label] || ''} onChange={(value) => handleOptionChange(postOption.label, value)}>
                   <div className="relative mt-1">
-                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-zinc-800 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-gray-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                       <span className="block truncate">{selectedOptions[postOption.label] || 'Select an option'}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <FaChevronUp className="h-5 w-5 text-zinc-400" aria-hidden="true" />
@@ -119,7 +121,7 @@ const BlogUrlPostGenerator: React.FC = () => {
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-zinc-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {postOption.options.map((option, optionIdx) => (
                           <Listbox.Option
                             key={optionIdx}
@@ -153,7 +155,7 @@ const BlogUrlPostGenerator: React.FC = () => {
               </div>
               <input
                 type="text"
-                className="w-full p-2 mt-2 rounded-lg bg-zinc-800 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="w-full p-2 mt-2 rounded-lg bg-gray-700 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
                 placeholder={`Custom ${postOption.label}`}
                 value={customOptions[postOption.label] || ''}
                 onChange={(e) => handleCustomOptionChange(postOption.label, e.target.value)}
@@ -187,6 +189,7 @@ const BlogUrlPostGenerator: React.FC = () => {
        </motion.div>
         )}
       </motion.div>
+      </div>
     </div>
   );
 };
