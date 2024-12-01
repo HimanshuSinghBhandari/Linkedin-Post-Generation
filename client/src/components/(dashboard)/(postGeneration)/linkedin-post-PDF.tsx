@@ -63,14 +63,14 @@ const PDFPostGenerator: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 bg-opacity-50 p-8 rounded-xl shadow-lg backdrop-filter backdrop-blur-lg relative overflow-hidden">
+    <div className="bg-gray-800 bg-opacity-50 p-4 sm:p-8 rounded-xl shadow-lg backdrop-filter backdrop-blur-lg relative overflow-hidden">
       <div className="absolute inset-0 bg-teal-500 opacity-10 blur-2xl"></div>
       <div className="relative z-10">
         <motion.h2 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl font-bold mb-6 text-zinc-100"
+          className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-zinc-100"
         >
           PDF LinkedIn Post Generator
         </motion.h2>
@@ -79,12 +79,12 @@ const PDFPostGenerator: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
           <div className="space-y-2">
             <label className="block font-semibold text-zinc-300">Choose PDF File</label>
             <div className="flex items-center space-x-4">
-              <FaFilePdf className="text-4xl text-teal-400" />
+              <FaFilePdf className="text-2xl sm:text-4xl text-teal-400" />
               <input
                 type="file"
                 accept=".pdf"
@@ -105,7 +105,7 @@ const PDFPostGenerator: React.FC = () => {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {(Object.keys(options) as Array<keyof Options>).map((option) => (
               <div key={option} className="space-y-2">
                 <label className="block font-semibold text-zinc-300">{option.charAt(0).toUpperCase() + option.slice(1)}</label>
@@ -124,7 +124,7 @@ const PDFPostGenerator: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-teal-500 text-zinc-900 py-3 px-6 rounded-full shadow-lg w-full font-bold text-lg transition-colors hover:bg-teal-400"
+            className="bg-teal-500 text-zinc-900 py-2 sm:py-3 px-4 sm:px-6 rounded-full shadow-lg w-full font-bold text-base sm:text-lg transition-colors hover:bg-teal-400"
             onClick={handleGeneratePost}
             disabled={isLoading}
           >
@@ -137,9 +137,9 @@ const PDFPostGenerator: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-8"
+            className="mt-6 sm:mt-8"
           >
-            <h3 className="font-semibold mb-4 text-xl text-teal-400">Generated Content:</h3>
+            <h3 className="font-semibold mb-4 text-lg sm:text-xl text-teal-400">Generated Content:</h3>
             <LinkedInPostCard
               content={generatedContent}
               profilePicture="https://picsum.photos/600/300?random=1"

@@ -46,7 +46,6 @@ const YoutubeUrlPostGenerator: React.FC = () => {
       const response = await axios.post('http://localhost:3002/youtube-content', { url: youtubeUrl });
       const youtubeContent = response.data;
   
-      // Combine all content into a single string
       const combinedContent = `Title: ${youtubeContent.title}\n\nDescription: ${youtubeContent.description}\n\nSubtitles: ${youtubeContent.subtitles}`;
   
       const finalOptions = { ...selectedOptions };
@@ -106,10 +105,10 @@ const YoutubeUrlPostGenerator: React.FC = () => {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="space-y-2"
+              className="space-y-2 flex flex-col"
             >
               <label className="font-semibold text-zinc-300">{postOption.label}</label>
-              <div className="relative">
+              <div className="relative flex-grow">
                 <Listbox value={selectedOptions[postOption.label] || ''} onChange={(value) => handleOptionChange(postOption.label, value)}>
                   <div className="relative mt-1">
                     <Listbox.Button className="relative w-full cursor-default rounded-lg bg-gray-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-teal-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
