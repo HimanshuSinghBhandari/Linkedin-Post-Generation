@@ -33,19 +33,21 @@ const FeatureShowcase: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
+    <div className="min-h-screen flex items-center justify-center px-4 py-16 md:p-0">
       <div className="max-w-6xl w-full relative">
-        <div className="absolute inset-0 bg-teal-700 opacity-12 blur-3xl rounded-full" />
+        {/* Background blur effect - reduced on mobile for better readability */}
+        <div className="hidden md:block absolute inset-0 bg-teal-700 opacity-12 blur-3xl rounded-full" />
+        
         <motion.h1
-          className="text-5xl font-bold text-zinc-300 mb-12 text-center relative z-10"
+          className="text-3xl md:text-5xl font-bold text-zinc-300 mb-8 md:mb-12 text-center relative z-10"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           Discover Our Amazing Features
         </motion.h1>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative z-10">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
