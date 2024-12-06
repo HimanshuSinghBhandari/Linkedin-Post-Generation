@@ -1,6 +1,6 @@
 "use client"
-import React from "react";
-import { useSession } from "next-auth/react";
+import React, {useEffect, useState} from "react";
+import { createClient } from "@/utils/supabase/client";
 import { motion } from "framer-motion";
 import { FaLink, FaYoutube, FaFilePdf, FaEdit, FaChartLine, FaBell, FaCog } from "react-icons/fa";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -15,7 +15,18 @@ const data = [
 ];
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const [user, setUser] = useState<any>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row bg-teal-900 min-h-screen text-white">
@@ -28,7 +39,7 @@ const Dashboard = () => {
             transition={{ duration: 0.5 }}
             className="text-2xl lg:text-4xl font-bold text-zinc-300 mb-4 lg:mb-0"
           >
-            Welcome, {session?.user?.name}
+           Welcome, {user?.user_metadata?.full_name ?? 'User'}
           </motion.h1>
           <div className="flex space-x-4">
             <FaBell className="text-2xl text-zinc-400 cursor-pointer hover:text-teal-500 transition-colors" />

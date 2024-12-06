@@ -1,17 +1,46 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { FaBars, FaPencilAlt, FaGlobe, FaYoutube, FaFilePdf, FaTimes, FaHome, FaUser, FaSignOutAlt } from 'react-icons/fa';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { createClient } from "@/utils/supabase/client";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [credits, setCredits] = useState(20);
+  const [user, setUser] = useState<{
+    full_name?: string;
+    avatar_url?: string;
+  } | null>(null);
   const router = useRouter();
-  const { data: session } = useSession();
+  const supabase = createClient();
+
+  // Fetch user data from Supabase
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const {
+        data: { user: authUser },
+      } = await supabase.auth.getUser();
+
+      if (authUser) {
+        // Fetch additional user metadata from Supabase
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name, avatar_url')
+          .eq('id', authUser.id)
+          .single();
+
+        if (data) {
+          setUser(data);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   // Check screen size and set mobile state
   useEffect(() => {
@@ -158,9 +187,9 @@ const Sidebar = () => {
           {/* User Profile Section */}
           <div className="p-4 border-t border-gray-700">
             <div className="flex items-center space-x-2">
-              {session?.user?.image ? (
+              {user?.avatar_url ? (
                 <Image
-                  src={session.user.image}
+                  src={user.avatar_url}
                   alt="User Avatar"
                   width={32}
                   height={32}
@@ -171,7 +200,7 @@ const Sidebar = () => {
               )}
               {(isMobile ? isOpen : true) && (
                 <span className="text-sm">
-                  {session?.user?.name || "User"}
+                  {user?.full_name || "User"}
                 </span>
               )}
             </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import { signInWithGoogle } from "@/lib/auth-actions";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -59,7 +60,9 @@ const Signup = () => {
         <p className="text-lg md:text-xl mb-12 z-10">AI-powered post generation to help you connect, engage, and grow your professional network effortlessly.</p>
 
         <motion.button
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+           onClick={() => {
+            signInWithGoogle();
+          }}
           className="bg-white text-black px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-200 transition-colors shadow-lg z-10"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -105,7 +108,7 @@ const Signup = () => {
       Join thousands of professionals who are already leveraging AI to enhance their LinkedIn presence.
     </motion.p>
   </div>
-</motion.div>
+  </motion.div>
     </div>
   );
 };
